@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Đặt tour</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <h2 class="title">Đặt tour</h2>
+
+        <form onsubmit="return datTour()">
+
+            <input type="text" id="name" placeholder="Họ tên"><br>
+
+            <input type="text" id="phone" placeholder="SĐT"><br>
+
+            <input type="email" id="email" placeholder="Email"><br>
+
+            <select id="tour">
+                <option value>Chọn điểm đến</option>
+                <option>Đà Lạt</option>
+                <option>Phú Quốc</option>
+            </select><br>
+
+            <input type="date" id="date"><br>
+
+            <input type="number" id="people" placeholder="Số người"><br>
+
+            <textarea id="note" placeholder="Ghi chú"></textarea><br>
+
+            <button class="btn">Đặt tour</button>
+
+        </form>
+
+        <p id="msg"></p>
+
+        <script src="js/script.js"></script>
+    </body>
+</html>
