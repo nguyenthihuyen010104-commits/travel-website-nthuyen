@@ -23,15 +23,17 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username',
-            'password' => 'required|min:6'
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password'
         ]);
 
         User::create([
             'name' => $request->name,
             'username' => $request->username,
+            'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-
         return redirect('/login')
             ->with('success', 'Đăng ký tài khoản thành công');
     }
@@ -48,7 +50,9 @@ class AuthController extends Controller
                 'isLogin' => true,
                 'username' => $user->username,
                 'name' => $user->name,
-                'user_id' => $user->id
+                'email' => $user->email,
+                'user_id' => $user->id,
+                'login_time' => now()->format('d/m/Y H:i:s')
             ]);
 
             return redirect('/dashboard');
