@@ -12,7 +12,10 @@ class AuthController extends Controller
     {
         return view('login');
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
     public function showRegister()
     {
         return view('register');
@@ -20,6 +23,10 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+<<<<<<< HEAD
+=======
+        // Validation bắt buộc theo đề bài
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username',
@@ -32,14 +39,22 @@ class AuthController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
+<<<<<<< HEAD
             'password' => Hash::make($request->password)
         ]);
         return redirect('/login')
             ->with('success', 'Đăng ký tài khoản thành công');
+=======
+            'password' => Hash::make($request->password), // Mã hóa pass
+            'role' => 'user'
+        ]);
+        return redirect('/login')->with('success', 'Đăng ký thành công!');
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
     }
 
     public function login(Request $request)
     {
+<<<<<<< HEAD
         $username = $request->username;
         $password = $request->password;
 
@@ -69,12 +84,33 @@ class AuthController extends Controller
         }
 
         return view('dashboard');
+=======
+        $user = User::where('username', $request->username)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Lưu session phân quyền truy cập
+            session([
+                'isLogin' => true,
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'role' => $user->role
+            ]);
+
+            if ($user->role == 'admin') return redirect('/admin/dashboard');
+            return redirect('/');
+        }
+        return back()->with('error', 'Sai tài khoản hoặc mật khẩu');
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
     }
 
     public function logout()
     {
         session()->flush();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
         return redirect('/login');
     }
 }

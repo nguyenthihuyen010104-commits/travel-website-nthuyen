@@ -12,13 +12,39 @@ return new class extends Migration
 
     public function up(): void
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+<<<<<<< HEAD
             $table->string('username')->unique();
             $table->string('password');
             $table->timestamps();
             $table->string('email')->unique();
+=======
+            $table->string('username')->unique(); // Thêm username duy nhất
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('role')->default('user'); // Mặc định ai đăng ký cũng là user
+            $table->timestamps();
+        });
+
+
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+>>>>>>> 1cb7498bdf98f2dbb4544b765b52244309071c2b
         });
     }
 
